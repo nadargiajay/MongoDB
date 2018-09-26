@@ -1,3 +1,4 @@
+/****** For Windows Mongo version above 3.0 **************/
 mongo -eval "sleep(5000)" --nodb
 
 mkdir c:\data\rs0
@@ -13,3 +14,20 @@ mongo --eval "sleep(5000)" --nodb
 REM  connect to one server and initiate the set
 mongo --port 37017 --eval "config = { _id: 's0', members:[{ _id : 0, host : 'localhost:37017' },{ _id : 1, host : 'localhost:37018' },{ _id : 2, host : 'localhost:37019' }]};rs.initiate(config)"
 
+/****** For Linux Mongo versions above 3.0 **************/
+
+mongo -eval "sleep(5000)" --nodb
+
+mkdir ReplicaSet
+mkdir ReplicaSet/rs0
+mkdir ReplicaSet/rs1
+mkdir ReplicaSet/rs2
+
+mongod --replSet MyReplica --dbpath ReplicaSet/rs0 --port 37017  --logpath ReplicaSet/rs0/log.log --oplogSize 100 --fork
+mongod --replSet MyReplica --dbpath ReplicaSet/rs1 --port 37018  --logpath ReplicaSet/rs1/log.log --oplogSize 100 --fork
+mongod --replSet MyReplica --dbpath ReplicaSet/rs2 --port 37019  --logpath ReplicaSet/rs2/log.log --oplogSize 100 --fork
+
+mongo --eval "sleep(5000)" --nodb
+
+REM  connect to one server and initiate the set
+mongo --port 37017 --eval "config = { _id: 'MyReplica', members:[{ _id : 0, host : 'localhost:37017' },{ _id : 1, host : 'localhost:37018' },{ _id : 2, host : 'localhost:37019' }]};rs.initiate(config)"
