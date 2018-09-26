@@ -1,0 +1,14 @@
+1. Download the MongoDB .tar.gz tarball
+2. Extract the files from the downloaded archive using command
+     tar -zxvf mongodb-linux-*-4.0.2.tgz
+3. The MongoDB binaries are in the bin/ directory of the tarball.
+4. Copy these binaries into a directory listed in your PATH variable such as /usr/local/bin, 
+5. using CD command first travel to bin/ directory and then use command
+   cp -r * /usr/local/bin
+6. create directory on home as "data/db".
+7. run your server as
+   mongod --dbpath "data/db" --port 27017 --logpath data/db/1.log --fork
+8. run client as
+   mongo --port 27017
+9. Now your ready to work with mongodb.
+
