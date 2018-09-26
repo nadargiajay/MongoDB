@@ -1,0 +1,14 @@
+mongoimport --drop -d MyDatabase -c posts posts.json
+mongoexport --db test --collection traffic --out traffic.json
+
+mongodump  --db test --excludeCollection=users --excludeCollection=salaries
+mongodump --host mongodb1.example.net --port 37017 --username user --password "pass" --out /opt/backup/mongodump-2011-10-24
+
+mongorestore --collection people --db accounts dump/
+mongorestore --host mongodb1.example.net --port 37017 --username user --password "pass" /opt/backup/mongodump-2011-10-24
+
+lvcreate --size 100M --snapshot --name mdb-snap01 /dev/vg0/mongodb
+
+/******** GridFS ****************/
+mongofiles.exe -d gridfs put song.mp3
+mongofiles.exe -d gridfs get song.mp3
