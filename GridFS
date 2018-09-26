@@ -12,3 +12,7 @@ lvcreate --size 100M --snapshot --name mdb-snap01 /dev/vg0/mongodb
 /******** GridFS ****************/
 mongofiles.exe -d gridfs put song.mp3
 mongofiles.exe -d gridfs get song.mp3
+
+/***** Install video player on ubuntu *******/
+
+sudo apt-get install gstreamer1.0-libav
