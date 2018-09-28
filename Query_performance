@@ -1,0 +1,7 @@
+1. Configuring the MongoDB profiler, The profiler stores the queries in db.system.profile. 
+2. check current profile status
+db.getProfilingStatus()
+3. set profiler to level 2.
+db.setProfilingLevel(2)
+4. Sort queries by when they were recorded, showing just commands
+db.system.profile.find({ "command.pipeline": { $exists: true } }, { "command.pipeline":1 }).sort({$natural:-1}).pretty();
