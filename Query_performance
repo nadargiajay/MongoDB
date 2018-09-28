@@ -5,3 +5,8 @@ db.getProfilingStatus()
 db.setProfilingLevel(2)
 4. Sort queries by when they were recorded, showing just commands
 db.system.profile.find({ "command.pipeline": { $exists: true } }, { "command.pipeline":1 }).sort({$natural:-1}).pretty();
+
+
+
+Reference:
+https://studio3t.com/knowledge-base/articles/mongodb-query-performance/
