@@ -1,0 +1,30 @@
+*************************** BackUp ***************************
+  sudo mkdir /var/backups/mongobackups
+  sudo mongodump --db newdb --out /var/backups/mongobackups/`date +"%m-%d-%y"`
+Explaination
+   --out which specifies the directory in which the data will be dumped. 
+   Let's take an example with backing up the newdb database and storing it in the /var/backups/mongobackups directory. 
+   Ideally, we'll have each of our backups in a directory with the current date like /var/backups/mongobackups/10-05-18.(05 oct 2018 )
+
+*************************** Regular(Incremental)BackUp *************************** 
+
+1. Set mongodump command as cron job to run it regularly
+2. To accomplish this open crontab editor as
+  sudo crontab -e
+3. for example we want to take regular back up of mongod every day @ 5:30 am then insert the following command in crontab editor
+  5 30 * * * mongodump --out /var/backups/mongobackups/`date +"%m-%d-%y"`
+  
+  Note: if --db argument is not provided, it takes backup of all mongo databases
+
+*************************** Deleting older BackUp *************************** 
+For example, to delete all the backups older than 7 days you can use the following bash command:
+  find /var/backups/mongobackups/ -mtime +7 -exec rm -rf {} \;
+
+Similarly to the previous mongodump command, this one can be also added as a cron job. 
+It should run just before you start the next backup, e.g. at 05:01 AM. For this purpose open again crontab:
+
+  sudo crontab -e
+  5 1 * * * find /var/backups/mongobackups/ -mtime +7 -exec rm -rf {} \;
+   
+   
+   
