@@ -9,10 +9,24 @@ Explaination
 *************************** Regular(Incremental)BackUp *************************** 
 
 1. Set mongodump command as cron job to run it regularly
+
+Linux Crontab Format
+MIN HOUR DOM MON DOW CMD
+
+Field    Description    Allowed Value
+MIN      Minute field    0 to 59
+HOUR     Hour field      0 to 23
+DOM      Day of Month    1-31
+MON      Month field     1-12
+DOW      Day Of Week     0-6
+CMD      Command         Any command to be executed.
+
+
+
 2. To accomplish this open crontab editor as
   sudo crontab -e
 3. for example we want to take regular back up of mongod every day @ 5:30 am then insert the following command in crontab editor
-  5 30 * * * mongodump --out /var/backups/mongobackups/`date +"%m-%d-%y"`
+  30 5 * * * mongodump --out /var/backups/mongobackups/`date +"%m-%d-%y"`
   
   Note: if --db argument is not provided, it takes backup of all mongo databases
 
@@ -24,7 +38,10 @@ Similarly to the previous mongodump command, this one can be also added as a cro
 It should run just before you start the next backup, e.g. at 05:01 AM. For this purpose open again crontab:
 
   sudo crontab -e
-  5 1 * * * find /var/backups/mongobackups/ -mtime +7 -exec rm -rf {} \;
+  1 5 * * * find /var/backups/mongobackups/ -mtime +7 -exec rm -rf {} \;
+   
+   
+   
    
    
    
