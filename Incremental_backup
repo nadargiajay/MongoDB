@@ -33,7 +33,7 @@ mkdir -p /var/backups/mongobackup/$(date '+%d-%b-%Y')
 mongodump --out /var/backups/mongobackup/$(date '+%d-%b-%Y')
 
 //Edit crontab file as
-30 5 * * * bash /home/ajaynadargi/backup.sh
+30 4 * * * bash /home/ajaynadargi/backup.sh
 
   
   Note: if --db argument is not provided, it takes backup of all mongo databases
