@@ -26,7 +26,15 @@ CMD      Command         Any command to be executed.
 2. To accomplish this open crontab editor as
   sudo crontab -e
 3. for example we want to take regular back up of mongod every day @ 5:30 am then insert the following command in crontab editor
-  30 5 * * * mongodump --out /var/backups/mongobackups/`date +"%m-%d-%y"`
+  
+//create file as backup.sh @home directory and include following commands
+
+mkdir -p /var/backups/mongobackup/$(date '+%d-%b-%Y')
+mongodump --out /var/backups/mongobackup/$(date '+%d-%b-%Y')
+
+//Edit crontab file as
+30 5 * * * bash /home/ajaynadargi/backup.sh
+
   
   Note: if --db argument is not provided, it takes backup of all mongo databases
 
